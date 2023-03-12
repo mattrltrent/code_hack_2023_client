@@ -1,3 +1,5 @@
+import 'package:client/anims/init_border_radius.dart';
+import 'package:client/anims/init_scale.dart';
 import 'package:client/anims/scale.dart';
 import 'package:client/screens/auth.dart';
 import 'package:client/styles/typography.dart';
@@ -15,44 +17,47 @@ class CoreData extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.lightBlue.withOpacity(0.3),
-            borderRadius: const BorderRadius.all(
-              Radius.circular(10),
+        InitScale(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.lightBlue.withOpacity(0.3),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(10),
+              ),
             ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: kHeader.copyWith(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: kHeader.copyWith(
+                          color: Colors.black,
+                        ),
+                      ),
+                      const SizedBox(height: 12.5),
+                      Text(
+                        body,
+                        style: kBody.copyWith(
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                  ScaleAnim(
+                      child: const Icon(
+                        CupertinoIcons.xmark,
+                        size: 35,
                         color: Colors.black,
                       ),
-                    ),
-                    const SizedBox(height: 12.5),
-                    Text(
-                      body,
-                      style: kBody.copyWith(
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-                ScaleAnim(
-                    child: const Icon(
-                      CupertinoIcons.xmark,
-                      size: 35,
-                      color: Colors.black,
-                    ),
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const AuthScreen()))),
-              ],
+                      onTap: () =>
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const AuthScreen()))),
+                ],
+              ),
             ),
           ),
         ),

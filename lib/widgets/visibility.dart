@@ -1,6 +1,7 @@
 import 'package:client/anims/scale.dart';
 import 'package:client/cubit/patient_data_cubit.dart';
 import 'package:client/styles/typography.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -38,22 +39,31 @@ class _VisibilityLayoutState extends State<VisibilityLayout> {
       onTap: () {
         setState(() => isSelected = !isSelected);
         context.read<PatientDataCubit>().setUps(widget.id, isSelected);
-        print((context.read<PatientDataCubit>().state as Data).ups);
       },
       child: Container(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(10)),
             color: isSelected ? Colors.greenAccent : Colors.redAccent,
             boxShadow: [
               BoxShadow(
-                  color: isSelected ? Colors.green.withOpacity(0.2) : Colors.red.withOpacity(0.2),
-                  blurRadius: 20,
-                  offset: const Offset(2, 1))
+                color: isSelected ? Colors.green.withOpacity(0.2) : Colors.red.withOpacity(0.2),
+                blurRadius: 20,
+                offset: const Offset(2, 1),
+              )
             ]),
-        child: Text(
-          isSelected ? "Need it" : "Don't need it",
-          style: kBody.copyWith(color: Colors.black),
+        child: Row(
+          children: [
+            Icon(
+              isSelected ? CupertinoIcons.eye : CupertinoIcons.eye_slash,
+              color: Colors.black,
+            ),
+            const SizedBox(width: 12.5),
+            Text(
+              isSelected ? "Required" : "Irrelevant",
+              style: kTitle.copyWith(color: Colors.black),
+            ),
+          ],
         ),
       ),
     );

@@ -27,32 +27,38 @@ class _PatientDataScreenState extends State<PatientDataScreen> {
     return found;
   }
 
+  Widget createChild(Data state) {
+    return state.ups!.isEmpty
+        ? Text(
+            "They didn't ask for anything!",
+            style: kTitle.copyWith(color: Colors.black),
+          )
+        : ListView.builder(
+            itemCount: state.ups!.length,
+            itemBuilder: (context, index) {
+              return Accordian(
+                isSelectedShown: false,
+                id: state.ups![index].id,
+                title: state.categories.where((e) => e.id == state.ups![index].id).first.name,
+                desc: state.categories.where((e) => e.id == state.ups![index].id).first.desc,
+              );
+            },
+          );
+  }
+
   Widget children(PatientDataState state) {
     if (state is Loading) {
       return const CupertinoActivityIndicator();
     } else if (state is Data) {
-      return Hero(
-        tag: 'd',
-        child: Material(
-          color: Colors.transparent,
-          child: state.ups!.isEmpty
-              ? Text(
-                  "They didn't ask for anything!",
-                  style: kTitle.copyWith(color: Colors.black),
-                )
-              : ListView.builder(
-                  itemCount: state.ups!.length,
-                  itemBuilder: (context, index) {
-                    return Accordian(
-                      isSelectedShown: false,
-                      id: state.ups![index].id,
-                      title: state.categories.where((e) => e.id == state.ups![index].id).first.name,
-                      desc: state.categories.where((e) => e.id == state.ups![index].id).first.desc,
-                    );
-                  },
-                ),
-        ),
-      );
+      return state.ups!.isEmpty
+          ? createChild(state)
+          : Hero(
+              tag: 'd',
+              child: Material(
+                color: Colors.transparent,
+                child: createChild(state),
+              ),
+            );
     } else {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
