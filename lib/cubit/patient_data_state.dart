@@ -45,5 +45,7 @@ class FullData extends PatientDataState {
   @override
   List<Object?> get props => [];
 
-  FullData();
+  final Model model;
+
+  FullData({required this.model});
 }

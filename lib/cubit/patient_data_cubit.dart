@@ -85,8 +85,8 @@ class PatientDataCubit extends Cubit<PatientDataState> {
     try {
       var response = await http.get(url);
       final data = json.decode(response.body);
-      final d = Model.fromJson(data);
-      print(d);
+      final full_data = Model.fromJson(data);
+      emit(FullData(model: full_data));
     } catch (err) {
       print("ERRRR: $err");
       emit(Error());

@@ -5,7 +5,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CoreData extends StatelessWidget {
-  const CoreData({super.key});
+  const CoreData({super.key, required this.title, required this.body});
+
+  final String title;
+  final String body;
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +31,14 @@ class CoreData extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "John Doe",
+                      title,
                       style: kHeader.copyWith(
                         color: Colors.black,
                       ),
                     ),
                     const SizedBox(height: 12.5),
                     Text(
-                      "01/01/2000 • Male",
+                      body,
                       style: kBody.copyWith(
                         color: Colors.black,
                       ),
@@ -53,12 +56,6 @@ class CoreData extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 25),
-        Text(
-          "These are the personalized patient notes.",
-          style: kBody.copyWith(color: Colors.black),
-          textAlign: TextAlign.left,
-        )
       ],
     );
   }

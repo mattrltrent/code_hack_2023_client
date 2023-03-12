@@ -53,10 +53,10 @@ class _ResultScreenState extends State<ResultScreen> {
                     textAlign: TextAlign.center,
                     style: kHeader.copyWith(color: Colors.black),
                   ),
+                  const SizedBox(height: 25),
                   widget.type == ResultType.accept
                       ? Column(
                           children: [
-                            const SizedBox(height: 25),
                             Text(
                               "This access request has been logged.",
                               textAlign: TextAlign.center,
