@@ -1,17 +1,82 @@
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
+
 import 'package:bloc/bloc.dart';
 import 'package:client/constants.dart';
 import 'package:client/entity/category.dart';
+import 'package:client/entity/ups.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
+import 'dart:math';
 
 part 'patient_data_state.dart';
 
 class PatientDataCubit extends Cubit<PatientDataState> {
   PatientDataCubit() : super(Loading());
+
+  // visit id
+  Future<void> sendData(PatientDataState state) async {
+    Map<String, bool> sendable_dateable = {};
+    List results = [];
+    if (state is Data) {
+      final ups = state.ups!;
+      for (Ups up in ups) {
+        String name = state.categories.where((e) => e.id == up.id).first.name;
+        results.add({name: true});
+      }
+      for (var result in results) {
+        sendable_dateable.addAll(result);
+      }
+    }
+    emit(Loading());
+    String formattedDate = DateFormat('MMM dd, yyyy').format(DateTime.now());
+    http.Response response;
+    try {
+      response = await http
+          .post(
+            Uri.parse(sendDataEndpoint),
+            headers: {'Content-Type': 'application/json'},
+            body: json.encode({
+              "visitID": (Random().nextInt(900000) + 100000).toString(),
+              "clinicID": (Random().nextInt(900000) + 100000).toString(),
+              "accessTime": formattedDate,
+              "clinicName": "Jubilee Hospital",
+              "clinicLocation": "1234 Main Street, New York, NY 10001",
+              "clinicPhone": "123-456-7890",
+              "clinician": "Dr. John Smith",
+              "clinicianSpecialty": "Cardiologist",
+              "accessedInformation": sendable_dateable,
+            }),
+          )
+          .timeout(const Duration(seconds: 3));
+    } catch (err) {
+      emit(Error());
+      print("err :( $err");
+      return;
+    }
+    print(response.statusCode);
+  }
+
+  void setUps(String id, bool value) {
+    if (state is Data) {
+      final data = state as Data;
+      final ups = data.ups;
+      final index = ups?.indexWhere((element) => element.id == id);
+      if (index == -1) {
+        ups?.add(Ups(id: id, isSelected: value));
+      } else {
+        if (value) {
+          ups![index!] = Ups(id: id, isSelected: value);
+        } else {
+          ups!.removeAt(index!);
+        }
+      }
+      emit(data.copyWith(ups: ups));
+    }
+  }
 
   Future<void> loadData(String name, String phn) async {
     emit(Loading());

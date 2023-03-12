@@ -7,7 +7,6 @@ class FullDataScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => false, // disables back button
-
       child: Scaffold(
         body: SafeArea(
           child: Column(

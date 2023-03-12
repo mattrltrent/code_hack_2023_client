@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../entity/ups.dart';
 import '../styles/typography.dart';
 import '../widgets/accordian.dart';
 import '../widgets/button.dart';
@@ -16,6 +17,16 @@ class PatientDataScreen extends StatefulWidget {
 }
 
 class _PatientDataScreenState extends State<PatientDataScreen> {
+  bool doesContain(List<Ups?> ups, String id) {
+    bool found = false;
+    for (var up in ups) {
+      if (up!.id == id) {
+        found = true;
+      }
+    }
+    return found;
+  }
+
   Widget children(PatientDataState state) {
     if (state is Loading) {
       return const CupertinoActivityIndicator();
@@ -24,23 +35,22 @@ class _PatientDataScreenState extends State<PatientDataScreen> {
         tag: 'd',
         child: Material(
           color: Colors.transparent,
-          child: ListView.builder(
-            itemCount: state.categories.length + 1,
-            itemBuilder: (context, index) {
-              if (index == 0) {
-                return const SizedBox(height: 10);
-              } else if (index == state.categories.length + 2) {
-                return const SizedBox(height: 25);
-              } else {
-                return Accordian(
-                  isSelectedShown: false,
-                  id: state.categories[index - 1].id,
-                  title: state.categories[index - 1].name,
-                  desc: state.categories[index - 1].desc,
-                );
-              }
-            },
-          ),
+          child: state.ups!.isEmpty
+              ? Text(
+                  "They didn't ask for anything!",
+                  style: kTitle.copyWith(color: Colors.black),
+                )
+              : ListView.builder(
+                  itemCount: state.ups!.length,
+                  itemBuilder: (context, index) {
+                    return Accordian(
+                      isSelectedShown: false,
+                      id: state.ups![index].id,
+                      title: state.categories.where((e) => e.id == state.ups![index].id).first.name,
+                      desc: state.categories.where((e) => e.id == state.ups![index].id).first.desc,
+                    );
+                  },
+                ),
         ),
       );
     } else {

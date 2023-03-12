@@ -78,7 +78,6 @@ class _PermScreensState extends State<PermScreens> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => false, // disables back button
-
       child: Scaffold(
         body: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,7 +91,7 @@ class _PermScreensState extends State<PermScreens> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "What data do you need from John Doe",
+                        "What data do you need from John Doe?",
                         style: kHeader.copyWith(color: Colors.black),
                       ),
                       const SizedBox(height: 25),
