@@ -35,7 +35,7 @@ class _VisibilityLayoutState extends State<VisibilityLayout> {
                   offset: const Offset(2, 1))
             ]),
         child: Text(
-          isSelected ? "Requesting access" : "Don't need it",
+          isSelected ? "Need it" : "Don't need it",
           style: kBody.copyWith(color: Colors.black),
         ),
       ),

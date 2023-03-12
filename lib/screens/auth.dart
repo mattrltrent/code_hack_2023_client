@@ -1,7 +1,9 @@
+import 'package:client/cubit/patient_data_cubit.dart';
 import 'package:client/screens/perms.dart';
 import 'package:client/widgets/button.dart';
 import 'package:client/widgets/textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../styles/typography.dart';
 
@@ -13,17 +15,17 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  late TextEditingController controller;
+  late TextEditingController phnController;
 
   @override
   void initState() {
-    controller = TextEditingController();
+    phnController = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    phnController.dispose();
     super.dispose();
   }
 
@@ -48,32 +50,35 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
               ),
               const SizedBox(height: 25),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Enter a patient's PHN to find them in the system!",
-                  style: kBody.copyWith(
-                    color: Colors.black,
-                  ),
-                ),
+              TextfieldLayout(
+                controller: phnController,
+                topText: "Enter patient PHN",
               ),
               const SizedBox(height: 25),
               TextfieldLayout(
-                controller: controller,
-                topText: "Enter patient PHN",
-                showTopText: false,
+                controller: TextEditingController(),
+                topText: "Admin username",
+              ),
+              const SizedBox(height: 25),
+              TextfieldLayout(
+                password: true,
+                controller: TextEditingController(),
+                topText: "Admin password",
               ),
               const SizedBox(height: 25),
               ButtonLayout(
                 bgColor: Colors.amber,
                 onTap: () {
-                  String phn = controller.value.text;
+                  String phn = phnController.value.text;
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => PermScreens(phn: phn),
+                      builder: (context) => BlocProvider(
+                        create: (context) => PatientDataCubit(),
+                        child: PermScreens(phn: phn),
+                      ),
                     ),
                   );
-                  controller.clear();
+                  phnController.clear();
                 },
                 text: "Submit",
               ),
