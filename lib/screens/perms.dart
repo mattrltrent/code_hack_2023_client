@@ -47,81 +47,102 @@ class _PermScreensState extends State<PermScreens> {
         ),
       );
     } else {
-      return const Text("Error");
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "So, uh, something went wrong...",
+            style: kTitle.copyWith(color: Colors.black),
+          ),
+          const SizedBox(height: 25),
+          SizedBox(
+            width: 150,
+            child: ButtonLayout(
+              bgColor: Colors.amber,
+              onTap: () => context.read<PatientDataCubit>().loadData("name", "phn"),
+              text: "Retry",
+            ),
+          ),
+        ],
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        bottom: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 25),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "What data do you need from the patient?",
-                        style: kHeader.copyWith(color: Colors.black),
-                      ),
-                      const SizedBox(height: 25),
-                      Text(
-                        "John Doe • PHN: ${widget.phn}",
-                        style: kBody.copyWith(color: Colors.black),
-                      ),
-                      const SizedBox(height: 25),
-                      Container(color: Colors.grey.withOpacity(0.5), height: 1, width: double.infinity),
-                      const SizedBox(height: 25),
-                      Column(
-                        children: [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: ButtonLayout(
-                              bgColor: Colors.amber,
-                              onTap: () => Navigator.pop(context),
-                              text: "<- Go back",
-                            ),
+      body: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: SafeArea(
+                bottom: false,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "What data do you need from John Doe",
+                      style: kHeader.copyWith(color: Colors.black),
+                    ),
+                    const SizedBox(height: 25),
+                    Text(
+                      "PHN: ${widget.phn}",
+                      style: kBody.copyWith(color: Colors.black),
+                    ),
+                    const SizedBox(height: 25),
+                    Container(color: Colors.grey.withOpacity(0.5), height: 1, width: double.infinity),
+                    const SizedBox(height: 25),
+                    Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: ButtonLayout(
+                            bgColor: Colors.amber,
+                            onTap: () => Navigator.pop(context),
+                            text: "<- Go back",
                           ),
-                          const SizedBox(height: 12.5),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: ButtonLayout(
-                              bgColor: Colors.amber,
-                              onTap: () => Navigator.push(
-                                  context, MaterialPageRoute(builder: (context) => const PatientDataScreen())),
-                              text: "Ask patient for permission ->",
-                            ),
+                        ),
+                        const SizedBox(height: 12.5),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: ButtonLayout(
+                            bgColor: Colors.amber,
+                            onTap: () => Navigator.push(
+                                context, MaterialPageRoute(builder: (context) => const PatientDataScreen())),
+                            text: "Ask patient for permission ->",
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              Expanded(
-                flex: 2,
-                child: Center(
-                  child: BlocBuilder<PatientDataCubit, PatientDataState>(
-                    key: UniqueKey(),
-                    builder: (context, state) {
-                      return AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 750),
-                        child: children(state),
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+          Expanded(
+            flex: 2,
+            child: Container(
+              width: double.infinity,
+              color: Colors.grey.withOpacity(0.2),
+              child: SafeArea(
+                bottom: false,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: Center(
+                    child: BlocBuilder<PatientDataCubit, PatientDataState>(
+                      key: UniqueKey(),
+                      builder: (context, state) {
+                        return children(state);
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

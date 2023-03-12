@@ -23,3 +23,8 @@ class Data extends PatientDataState {
 
   Data({required this.categories, required this.name, required this.phn});
 }
+
+class Error extends PatientDataState {
+  @override
+  List<Object?> get props => [];
+}

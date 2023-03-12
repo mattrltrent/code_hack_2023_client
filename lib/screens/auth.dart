@@ -43,7 +43,7 @@ class _AuthScreenState extends State<AuthScreen> {
               Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  "Find patient by ID",
+                  "Find a patient by their PHN, and authenticate with your healthcare credentials.",
                   style: kTitle.copyWith(
                     color: Colors.black,
                   ),
@@ -52,7 +52,7 @@ class _AuthScreenState extends State<AuthScreen> {
               const SizedBox(height: 25),
               TextfieldLayout(
                 controller: phnController,
-                topText: "Enter patient PHN",
+                topText: "Patient PHN",
               ),
               const SizedBox(height: 25),
               TextfieldLayout(
@@ -80,7 +80,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   );
                   phnController.clear();
                 },
-                text: "Submit",
+                text: "Search for patient",
               ),
             ],
           ),
