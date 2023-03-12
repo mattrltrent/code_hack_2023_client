@@ -1,3 +1,4 @@
+import 'package:client/screens/patient_data.dart';
 import 'package:client/styles/typography.dart';
 import 'package:client/widgets/accordian.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,9 @@ import 'package:flutter/material.dart';
 import '../widgets/button.dart';
 
 class PermScreens extends StatelessWidget {
-  const PermScreens({super.key});
+  const PermScreens({super.key, required this.phn});
+
+  final String phn;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,7 @@ class PermScreens extends StatelessWidget {
                       ),
                       const SizedBox(height: 25),
                       Text(
-                        "John Doe",
+                        "John Doe • PHN: $phn",
                         style: kBody.copyWith(color: Colors.black),
                       ),
                       const SizedBox(height: 25),
@@ -50,12 +53,9 @@ class PermScreens extends StatelessWidget {
                             alignment: Alignment.centerLeft,
                             child: ButtonLayout(
                               bgColor: Colors.amber,
-                              onTap: () => Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => const PermScreens(),
-                                ),
-                              ),
-                              text: "Done ->",
+                              onTap: () => Navigator.push(
+                                  context, MaterialPageRoute(builder: (context) => const PatientDataScreen())),
+                              text: "Ask patient for permission ->",
                             ),
                           ),
                         ],

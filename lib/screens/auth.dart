@@ -5,8 +5,27 @@ import 'package:flutter/material.dart';
 
 import '../styles/typography.dart';
 
-class AuthScreen extends StatelessWidget {
+class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
+
+  @override
+  State<AuthScreen> createState() => _AuthScreenState();
+}
+
+class _AuthScreenState extends State<AuthScreen> {
+  late TextEditingController controller;
+
+  @override
+  void initState() {
+    controller = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,18 +59,22 @@ class AuthScreen extends StatelessWidget {
               ),
               const SizedBox(height: 25),
               TextfieldLayout(
-                controller: TextEditingController(),
+                controller: controller,
                 topText: "Enter patient PHN",
                 showTopText: false,
               ),
               const SizedBox(height: 25),
               ButtonLayout(
                 bgColor: Colors.amber,
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const PermScreens(),
-                  ),
-                ),
+                onTap: () {
+                  String phn = controller.value.text;
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => PermScreens(phn: phn),
+                    ),
+                  );
+                  controller.clear();
+                },
                 text: "Submit",
               ),
             ],
