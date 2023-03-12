@@ -40,3 +40,10 @@ class Error extends PatientDataState {
   @override
   List<Object?> get props => [];
 }
+
+class FullData extends PatientDataState {
+  @override
+  List<Object?> get props => [];
+
+  FullData();
+}

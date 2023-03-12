@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:client/entity/models.dart';
 import 'package:intl/intl.dart';
 
 import 'package:bloc/bloc.dart';
@@ -75,6 +76,20 @@ class PatientDataCubit extends Cubit<PatientDataState> {
         }
       }
       emit(data.copyWith(ups: ups));
+    }
+  }
+
+  Future<void> fetchAllData() async {
+    emit(Loading());
+    var url = Uri.parse('https://codehack-2023-server.christopherhuk1.repl.co/dummy/1/getInfo');
+    try {
+      var response = await http.get(url);
+      final data = json.decode(response.body);
+      final d = Model.fromJson(data);
+      print(d);
+    } catch (err) {
+      print("ERRRR: $err");
+      emit(Error());
     }
   }
 

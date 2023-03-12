@@ -133,9 +133,7 @@ class _PermScreensState extends State<PermScreens> {
                                     Container(
                                       decoration: const BoxDecoration(
                                         color: Colors.redAccent,
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(10),
-                                        ),
+                                        borderRadius: BorderRadius.all(Radius.circular(10)),
                                       ),
                                       child: Padding(
                                         padding: const EdgeInsets.all(20),
