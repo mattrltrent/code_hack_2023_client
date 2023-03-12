@@ -2,6 +2,7 @@ class CategoryItem {
   final String id;
   final String name;
   final String desc;
+  final bool hasConsent = false;
 
   const CategoryItem({
     required this.id,
@@ -9,7 +10,7 @@ class CategoryItem {
     required this.desc,
   });
 
-  factory CategoryItem.fromJson(Map<String, String> json) {
+  factory CategoryItem.fromJson(Map<String, dynamic> json) {
     return CategoryItem(
       id: json["id"] as String,
       name: json["name"] as String,

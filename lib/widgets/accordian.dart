@@ -3,7 +3,18 @@ import 'package:client/widgets/visibility.dart';
 import 'package:flutter/material.dart';
 
 class Accordian extends StatelessWidget {
-  const Accordian({super.key});
+  const Accordian({
+    super.key,
+    required this.title,
+    required this.desc,
+    this.isSelectedShown = true,
+    required this.id,
+  });
+
+  final String title;
+  final String desc;
+  final String id;
+  final bool isSelectedShown;
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +31,14 @@ class Accordian extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Allergies",
+                  title,
                   style: kHeader.copyWith(
                     color: Colors.black,
                   ),
                 ),
                 const SizedBox(height: 12.5),
                 Text(
-                  "This is a cool description for this field.",
+                  desc,
                   style: kBody.copyWith(
                     color: Colors.black,
                   ),
@@ -36,7 +47,7 @@ class Accordian extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 25),
-          const VisibilityLayout(type: VisibilityType.visible),
+          isSelectedShown ? const VisibilityLayout(type: VisibilityType.visible) : Container(),
         ],
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:alert_banner/exports.dart';
 import 'package:client/cubit/patient_data_cubit.dart';
 import 'package:client/screens/patient_data.dart';
 import 'package:client/styles/typography.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../di.dart';
 import '../widgets/button.dart';
 
 class PermScreens extends StatefulWidget {
@@ -28,22 +30,26 @@ class _PermScreensState extends State<PermScreens> {
     if (state is Loading) {
       return const CupertinoActivityIndicator();
     } else if (state is Data) {
-      return SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          children: const [
-            SizedBox(height: 10),
-            Accordian(),
-            Accordian(),
-            Accordian(),
-            Accordian(),
-            Accordian(),
-            Accordian(),
-            Accordian(),
-            Accordian(),
-            Accordian(),
-            SizedBox(height: 25),
-          ],
+      return Hero(
+        tag: 'd',
+        child: Material(
+          color: Colors.transparent,
+          child: ListView.builder(
+            itemCount: state.categories.length + 1,
+            itemBuilder: (context, index) {
+              if (index == 0) {
+                return const SizedBox(height: 10);
+              } else if (index == state.categories.length + 2) {
+                return const SizedBox(height: 25);
+              } else {
+                return Accordian(
+                  id: state.categories[index - 1].id,
+                  title: state.categories[index - 1].name,
+                  desc: state.categories[index - 1].desc,
+                );
+              }
+            },
+          ),
         ),
       );
     } else {
@@ -70,79 +76,116 @@ class _PermScreensState extends State<PermScreens> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: SafeArea(
-                bottom: false,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "What data do you need from John Doe",
-                      style: kHeader.copyWith(color: Colors.black),
-                    ),
-                    const SizedBox(height: 25),
-                    Text(
-                      "PHN: ${widget.phn}",
-                      style: kBody.copyWith(color: Colors.black),
-                    ),
-                    const SizedBox(height: 25),
-                    Container(color: Colors.grey.withOpacity(0.5), height: 1, width: double.infinity),
-                    const SizedBox(height: 25),
-                    Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: ButtonLayout(
-                            bgColor: Colors.amber,
-                            onTap: () => Navigator.pop(context),
-                            text: "<- Go back",
+    return WillPopScope(
+      onWillPop: () async => false, // disables back button
+
+      child: Scaffold(
+        body: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: SafeArea(
+                  bottom: false,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "What data do you need from John Doe",
+                        style: kHeader.copyWith(color: Colors.black),
+                      ),
+                      const SizedBox(height: 25),
+                      Text(
+                        "PHN: ${widget.phn}",
+                        style: kBody.copyWith(color: Colors.black),
+                      ),
+                      const SizedBox(height: 25),
+                      Container(color: Colors.grey.withOpacity(0.5), height: 1, width: double.infinity),
+                      const SizedBox(height: 25),
+                      Column(
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: ButtonLayout(
+                              bgColor: Colors.amber,
+                              onTap: () => Navigator.pop(context),
+                              text: "<- Go back",
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 12.5),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: ButtonLayout(
-                            bgColor: Colors.amber,
-                            onTap: () => Navigator.push(
-                                context, MaterialPageRoute(builder: (context) => const PatientDataScreen())),
-                            text: "Ask patient for permission ->",
+                          const SizedBox(height: 12.5),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: ButtonLayout(
+                              bgColor: Colors.amber,
+                              // TODO: only if
+                              onTap: () {
+                                if (context.read<PatientDataCubit>().state is Data) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const PatientDataScreen(),
+                                    ),
+                                  );
+                                } else {
+                                  showAlertBanner(
+                                    context,
+                                    () {},
+                                    Container(
+                                      decoration: const BoxDecoration(
+                                        color: Colors.redAccent,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(10),
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(20),
+                                        child: Text(
+                                          "Unable to ask patient for permission if data hasn't loaded!",
+                                          textAlign: TextAlign.center,
+                                          style: kBody.copyWith(color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
+                              text: "Ask patient for permission ->",
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Container(
-              width: double.infinity,
-              color: Colors.grey.withOpacity(0.2),
-              child: SafeArea(
-                bottom: false,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: Center(
-                    child: BlocBuilder<PatientDataCubit, PatientDataState>(
-                      key: UniqueKey(),
-                      builder: (context, state) {
-                        return children(state);
-                      },
+            Expanded(
+              flex: 2,
+              child: Container(
+                width: double.infinity,
+                color: Colors.grey.withOpacity(0.2),
+                child: SafeArea(
+                  bottom: false,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
+                    child: Center(
+                      child: BlocBuilder<PatientDataCubit, PatientDataState>(
+                        key: UniqueKey(),
+                        builder: (context, state) {
+                          return AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 500),
+                            child: children(state),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

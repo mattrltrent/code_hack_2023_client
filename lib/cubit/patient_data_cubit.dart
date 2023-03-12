@@ -15,21 +15,28 @@ class PatientDataCubit extends Cubit<PatientDataState> {
 
   Future<void> loadData(String name, String phn) async {
     emit(Loading());
-    // await Future.delayed(const Duration(milliseconds: 250));
-    final response = await http.get(Uri.parse(listEndpoint));
+    http.Response response;
+    try {
+      response = await http.get(Uri.parse(listEndpoint)).timeout(const Duration(seconds: 3));
+    } catch (err) {
+      emit(Error());
+      return;
+    }
+    print(response.statusCode);
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
+      List<CategoryItem> items = [];
       try {
-        final data = CategoryItem.fromJson(jsonData);
-        print(data);
-      } catch (e) {
+        final parsed = jsonData.cast<Map<String, dynamic>>();
+        items = parsed.map<CategoryItem>((json) => CategoryItem.fromJson(json)).toList();
+      } catch (err) {
+        print("ERR: $err");
         emit(Error());
         return;
       }
-      emit(Data(categories: [], name: name, phn: phn));
+      emit(Data(categories: items, name: name, phn: phn));
     } else {
       emit(Error());
     }
-    // Parse
   }
 }
