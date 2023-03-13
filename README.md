@@ -35,12 +35,12 @@ This is an app developed for the #islandHealth Code Hack 2023 event. Within 24 h
 
   
 
-<img  src="https://github.com/mattrltrent/code_hack_2023_client/blob/main/assets/ex_1.JPG?raw=true"  width="300"  height=""  style="display: inline"/>
+<img  src="https://github.com/mattrltrent/code_hack_2023_client/blob/main/assets/ex_1.PNG?raw=true"  width="300"  height=""  style="display: inline"/>
 
-<img  src="https://github.com/mattrltrent/code_hack_2023_client/blob/main/assets/ex_2.JPG?raw=true"  width="300"  height=""  style="display: inline"/>
+<img  src="https://github.com/mattrltrent/code_hack_2023_client/blob/main/assets/ex_2.PNG?raw=true"  width="300"  height=""  style="display: inline"/>
 
-<img  src="https://github.com/mattrltrent/code_hack_2023_client/blob/main/assets/ex_3.JPG?raw=true"  width="300"  height=""  style="display: inline"/>
+<img  src="https://github.com/mattrltrent/code_hack_2023_client/blob/main/assets/ex_3.PNG?raw=true"  width="300"  height=""  style="display: inline"/>
 
-<img  src="https://github.com/mattrltrent/code_hack_2023_client/blob/main/assets/ex_4.JPG?raw=true"  width="300"  height=""  style="display: inline"/>
+<img  src="https://github.com/mattrltrent/code_hack_2023_client/blob/main/assets/ex_4.PNG?raw=true"  width="300"  height=""  style="display: inline"/>
 
-<img  src="https://github.com/mattrltrent/code_hack_2023_client/blob/main/assets/ex_5.JPG?raw=true"  width="300"  height=""  style="display: inline"/>
+<img  src="https://github.com/mattrltrent/code_hack_2023_client/blob/main/assets/ex_5.PNG?raw=true"  width="300"  height=""  style="display: inline"/>
