@@ -46,7 +46,8 @@ class _PermScreensState extends State<PermScreens> {
                 return const SizedBox(height: 25);
               } else {
                 return InitScale(
-                  delayDurationInMilliseconds: 250 * index,
+                  delayDurationInMilliseconds: 150 * index,
+                  durationOfScaleInMilliseconds: 150,
                   child: Accordian(
                     id: state.categories[index - 1].id,
                     title: state.categories[index - 1].name,
@@ -89,78 +90,75 @@ class _PermScreensState extends State<PermScreens> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: Container(
-                // color: Colors.lightBlue.withOpacity(0.4),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: SafeArea(
-                    bottom: false,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "What data do you need from your patient?",
-                          style: kHeader.copyWith(color: Colors.black),
-                        ),
-                        const SizedBox(height: 25),
-                        Text(
-                          "PHN: ${widget.phn}, John F. Kennedy",
-                          style: kBody.copyWith(color: Colors.black),
-                        ),
-                        const SizedBox(height: 25),
-                        Container(color: Colors.grey.withOpacity(0.5), height: 1, width: double.infinity),
-                        const SizedBox(height: 25),
-                        Column(
-                          children: [
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: ButtonLayout(
-                                bgColor: Colors.amber,
-                                onTap: () => Navigator.pop(context),
-                                text: "<- Go back",
-                              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: SafeArea(
+                  bottom: false,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "What data do you need from your patient?",
+                        style: kHeader.copyWith(color: Colors.black),
+                      ),
+                      const SizedBox(height: 25),
+                      Text(
+                        "PHN: ${widget.phn}, Kate Wilson",
+                        style: kBody.copyWith(color: Colors.black),
+                      ),
+                      const SizedBox(height: 25),
+                      Container(color: Colors.grey.withOpacity(0.5), height: 1, width: double.infinity),
+                      const SizedBox(height: 25),
+                      Column(
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: ButtonLayout(
+                              bgColor: Colors.amber,
+                              onTap: () => Navigator.pop(context),
+                              text: "<- Go back",
                             ),
-                            const SizedBox(height: 12.5),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: ButtonLayout(
-                                bgColor: Colors.amber,
-                                onTap: () {
-                                  if (context.read<PatientDataCubit>().state is Data) {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const PatientDataScreen(),
+                          ),
+                          const SizedBox(height: 12.5),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: ButtonLayout(
+                              bgColor: Colors.amber,
+                              onTap: () {
+                                if (context.read<PatientDataCubit>().state is Data) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const PatientDataScreen(),
+                                    ),
+                                  );
+                                } else {
+                                  showAlertBanner(
+                                    context,
+                                    () {},
+                                    Container(
+                                      decoration: const BoxDecoration(
+                                        color: Colors.redAccent,
+                                        borderRadius: BorderRadius.all(Radius.circular(10)),
                                       ),
-                                    );
-                                  } else {
-                                    showAlertBanner(
-                                      context,
-                                      () {},
-                                      Container(
-                                        decoration: const BoxDecoration(
-                                          color: Colors.redAccent,
-                                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(20),
-                                          child: Text(
-                                            "Unable to ask patient for permission if data hasn't loaded!",
-                                            textAlign: TextAlign.center,
-                                            style: kBody.copyWith(color: Colors.white),
-                                          ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(20),
+                                        child: Text(
+                                          "Unable to ask patient for permission if data hasn't loaded!",
+                                          textAlign: TextAlign.center,
+                                          style: kBody.copyWith(color: Colors.white),
                                         ),
                                       ),
-                                    );
-                                  }
-                                },
-                                text: "Ask patient for permission ->",
-                              ),
+                                    ),
+                                  );
+                                }
+                              },
+                              text: "Ask patient for permission ->",
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),

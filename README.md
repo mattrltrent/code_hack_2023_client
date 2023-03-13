@@ -1,16 +1,46 @@
-# client
 
-A new Flutter project.
+# MedMate: A system allowing patients to have increased control over their health records
 
-## Getting Started
+  
 
-This project is a starting point for a Flutter application.
+This is an app developed for the #islandHealth Code Hack 2023 event. Within 24 hours, we developed a system facilitating all doctors and patient interactions with a central health database. This allows patients to have more control over their personal health data and records.
 
-A few resources to get you started if this is your first Flutter project:
+  
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Devs
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+  
+
+- [Matthew Trent](https://github.com/mattrltrent)
+
+- [Julia Hoang](https://github.com/julhoang)
+
+- [Christopher Huk](https://github.com/TalentedB)
+
+  
+
+### Sub-projects of MedMate
+
+  
+
+- Doctor-facing Flutter application (the repo you're viewing now)
+
+- Client-facing NextJS application ([repo](https://github.com/julhoang/code_hack_patient_app))
+
+- NodeJS server for managing data between both clients ([repo](https://github.com/mattrltrent/code_hack_2023_server))
+
+  
+
+### Screenshots of Flutter doctor-facing portion
+
+  
+
+<img  src="https://github.com/mattrltrent/code_hack_2023_client/blob/main/assets/ex_1.JPG?raw=true"  width="300"  height=""  style="display: inline"/>
+
+<img  src="https://github.com/mattrltrent/code_hack_2023_client/blob/main/assets/ex_2.JPG?raw=true"  width="300"  height=""  style="display: inline"/>
+
+<img  src="https://github.com/mattrltrent/code_hack_2023_client/blob/main/assets/ex_3.JPG?raw=true"  width="300"  height=""  style="display: inline"/>
+
+<img  src="https://github.com/mattrltrent/code_hack_2023_client/blob/main/assets/ex_4.JPG?raw=true"  width="300"  height=""  style="display: inline"/>
+
+<img  src="https://github.com/mattrltrent/code_hack_2023_client/blob/main/assets/ex_5.JPG?raw=true"  width="300"  height=""  style="display: inline"/>

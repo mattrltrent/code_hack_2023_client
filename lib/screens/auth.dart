@@ -18,16 +18,22 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   late TextEditingController phnController;
+  late TextEditingController t1Controller;
+  late TextEditingController t2Controller;
 
   @override
   void initState() {
     phnController = TextEditingController();
+    t1Controller = TextEditingController();
+    t2Controller = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
     phnController.dispose();
+    t1Controller.dispose();
+    t2Controller.dispose();
     super.dispose();
   }
 
@@ -61,13 +67,13 @@ class _AuthScreenState extends State<AuthScreen> {
                   ),
                   const SizedBox(height: 25),
                   TextfieldLayout(
-                    controller: TextEditingController(),
+                    controller: t1Controller,
                     topText: "Admin username",
                   ),
                   const SizedBox(height: 25),
                   TextfieldLayout(
                     password: true,
-                    controller: TextEditingController(),
+                    controller: t2Controller,
                     topText: "Admin password",
                   ),
                   const SizedBox(height: 25),
@@ -81,6 +87,8 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                       );
                       phnController.clear();
+                      t1Controller.clear();
+                      t2Controller.clear();
                     },
                     text: "Search for patient",
                   ),

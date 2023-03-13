@@ -47,7 +47,7 @@ class _VisibilityLayoutState extends State<VisibilityLayout> {
             color: isSelected ? Colors.greenAccent : Colors.redAccent,
             boxShadow: [
               BoxShadow(
-                color: isSelected ? Colors.green.withOpacity(0.2) : Colors.red.withOpacity(0.2),
+                color: isSelected ? Colors.green.withOpacity(0.4) : Colors.red.withOpacity(0.4),
                 blurRadius: 20,
                 offset: const Offset(2, 1),
               )
@@ -60,7 +60,7 @@ class _VisibilityLayoutState extends State<VisibilityLayout> {
             ),
             const SizedBox(width: 12.5),
             Text(
-              isSelected ? "Required" : "Irrelevant",
+              isSelected ? "Request" : "Irrelevant",
               style: kTitle.copyWith(color: Colors.black),
             ),
           ],

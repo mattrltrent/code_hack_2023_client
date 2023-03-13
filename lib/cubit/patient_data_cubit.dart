@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:client/entity/models.dart';
 import 'package:intl/intl.dart';
+import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:client/constants.dart';
@@ -47,7 +48,7 @@ class PatientDataCubit extends Cubit<PatientDataState> {
               "clinicName": "Jubilee Hospital",
               "clinicLocation": "1234 Main Street, New York, NY 10001",
               "clinicPhone": "123-456-7890",
-              "clinician": "Dr. John Smith",
+              "clinician": docs[Random().nextInt(docs.length)],
               "clinicianSpecialty": "Cardiologist",
               "accessedInformation": sendable_dateable,
             }),

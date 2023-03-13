@@ -44,7 +44,7 @@ class _FullDataScreenState extends State<FullDataScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Here go some specific notes about the patient.",
+                      "Here go some specific notes about the patient. John does not like apples. He also has a history of riding horses and has a fear of heights. He is a very interesting person. Cool stuff, I suppose.",
                       style: kBody.copyWith(color: Colors.black),
                       textAlign: TextAlign.left,
                     ),
