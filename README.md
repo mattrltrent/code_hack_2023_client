@@ -33,7 +33,7 @@ This is an app developed for the #islandHealth Code Hack 2023 event. Within 24 h
 
 ### Screenshots of Flutter doctor-facing portion
 
-  
+<img  src="https://github.com/mattrltrent/code_hack_2023_client/blob/main/assets/ex_gif.gif?raw=true"  width="300"  height=""  style="display: inline"/>
 
 <img  src="https://github.com/mattrltrent/code_hack_2023_client/blob/main/assets/ex_1.PNG?raw=true"  width="300"  height=""  style="display: inline"/>
 
